@@ -1,6 +1,6 @@
 # AntiByteApps
 
 Patlat Bi Kelime!
-Türkçe kelime oyunu.oyunu kelime Türkçe
+Türkçe kelime oyunu
 
 E-mail: antibyteapps@gmail.com
