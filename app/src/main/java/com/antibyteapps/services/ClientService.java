@@ -42,11 +42,11 @@ public class ClientService {
 		return UriBuilder.fromUri(ENDPOINT).build();
 	}
 
-	public String plainRequest() {
-		return target.path(SERVICES).path(SERVICE_PATH).request().accept(MediaType.TEXT_PLAIN).get(String.class);
+	private String plainRequest(String param) {
+		return target.path(SERVICES).path(SERVICE_PATH).path(param).request().accept(MediaType.TEXT_PLAIN).get(String.class);
 	}
 
-	public String plainRequest(String param) {
-		return target.path(SERVICES).path(SERVICE_PATH).path(param).request().accept(MediaType.TEXT_PLAIN).get(String.class);
+	public boolean isWord(String word) {
+		return "true".equals(plainRequest(word));
 	}
 }
