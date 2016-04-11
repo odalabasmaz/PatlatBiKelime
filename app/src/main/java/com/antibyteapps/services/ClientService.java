@@ -1,5 +1,7 @@
 package com.antibyteapps.services;
 
+import com.loopj.android.http.TextHttpResponseHandler;
+
 import org.glassfish.jersey.client.ClientConfig;
 
 import java.net.URI;
@@ -14,11 +16,8 @@ import javax.ws.rs.core.UriBuilder;
  * @author Orhun Dalabasmaz
  */
 public class ClientService {
-	private static final String ENDPOINT_LOCAL = "http://wrkodalabasmaz:8080";
-	private static final String ENDPOINT_REMOTE = "http://antibyteapps.orhundalabasmaz.com";
-	private static final String ENDPOINT = ENDPOINT_REMOTE;
-	private static final String SERVICES = "services";
-	private static final String SERVICE_PATH = "dictionary";
+	private static final String ENDPOINT = "http://antibyteapps.orhundalabasmaz.com";
+	private static final String SERVICE_PATH = "services/dictionary";
 
 	private static ClientService service;
 	private static WebTarget target;
@@ -45,10 +44,18 @@ public class ClientService {
 	}
 
 	private String plainRequest(String param) {
-		return target.path(SERVICES).path(SERVICE_PATH).path(param).request().accept(MediaType.TEXT_PLAIN).get(String.class);
+		return target.path(SERVICE_PATH).path(param).request().accept(MediaType.TEXT_PLAIN).get(String.class);
 	}
 
 	public boolean isWord(String word) {
 		return "true".equals(plainRequest(word));
+	}
+
+	public void checkWord(String word, TextHttpResponseHandler responseHandler) {
+		HttpUtils.get(getFinalServiceUrl(word), responseHandler);
+	}
+
+	private String getFinalServiceUrl(String word) {
+		return ENDPOINT + "/" + SERVICE_PATH + "/" + word;
 	}
 }
