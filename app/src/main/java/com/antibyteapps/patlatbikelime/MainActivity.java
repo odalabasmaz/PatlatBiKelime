@@ -3,12 +3,14 @@ package com.antibyteapps.patlatbikelime;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
+
+import com.antibyteapps.services.ClientService;
 
 import java.util.LinkedHashSet;
 import java.util.Random;
@@ -16,7 +18,8 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
 	private LinkedHashSet<Integer> hashSet = new LinkedHashSet<>();
-	final String alphabet = "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ";
+	private static final String ALPHABET = "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ";
+	private static final ClientService CLIENT = ClientService.getInstance();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +46,7 @@ public class MainActivity extends AppCompatActivity {
 					for (Integer i : hashSet) {
 						word += ((TextView) (gridview.getChildAt(i).findViewById(R.id.textView1))).getText();
 					}
-//					boolean isWord = ClientService.getInstance().plainRequest(word).contains("true");
-					boolean isWord =false;
+					boolean isWord = CLIENT.isWord(word);
 					if (!isWord) {
 						hashSet.clear();
 						TextView textWord = (TextView) findViewById(R.id.word);
@@ -64,19 +66,19 @@ public class MainActivity extends AppCompatActivity {
 					Object[] objects = hashSet.toArray();
 					for (int i = 0; i < objects.length; i++) {
 						if ((int) objects[i] % 5 == 0) {
-							((TextView) (gridview.getChildAt(bir * 5).findViewById(R.id.textView1))).setText(String.valueOf(alphabet.charAt(new Random().nextInt(alphabet.length()))));
+							((TextView) (gridview.getChildAt(bir * 5).findViewById(R.id.textView1))).setText(String.valueOf(ALPHABET.charAt(new Random().nextInt(ALPHABET.length()))));
 							bir++;
 						} else if ((int) objects[i] % 5 == 1) {
-							((TextView) (gridview.getChildAt(iki * 5 + 1).findViewById(R.id.textView1))).setText(String.valueOf(alphabet.charAt(new Random().nextInt(alphabet.length()))));
+							((TextView) (gridview.getChildAt(iki * 5 + 1).findViewById(R.id.textView1))).setText(String.valueOf(ALPHABET.charAt(new Random().nextInt(ALPHABET.length()))));
 							iki++;
 						} else if ((int) objects[i] % 5 == 2) {
-							((TextView) (gridview.getChildAt(uc * 5 + 2).findViewById(R.id.textView1))).setText(String.valueOf(alphabet.charAt(new Random().nextInt(alphabet.length()))));
+							((TextView) (gridview.getChildAt(uc * 5 + 2).findViewById(R.id.textView1))).setText(String.valueOf(ALPHABET.charAt(new Random().nextInt(ALPHABET.length()))));
 							uc++;
 						} else if ((int) objects[i] % 5 == 3) {
-							((TextView) (gridview.getChildAt(dort * 5 + 3).findViewById(R.id.textView1))).setText(String.valueOf(alphabet.charAt(new Random().nextInt(alphabet.length()))));
+							((TextView) (gridview.getChildAt(dort * 5 + 3).findViewById(R.id.textView1))).setText(String.valueOf(ALPHABET.charAt(new Random().nextInt(ALPHABET.length()))));
 							dort++;
 						} else if ((int) objects[i] % 5 == 4) {
-							((TextView) (gridview.getChildAt(bes * 5 + 4).findViewById(R.id.textView1))).setText(String.valueOf(alphabet.charAt(new Random().nextInt(alphabet.length()))));
+							((TextView) (gridview.getChildAt(bes * 5 + 4).findViewById(R.id.textView1))).setText(String.valueOf(ALPHABET.charAt(new Random().nextInt(ALPHABET.length()))));
 							bes++;
 						}
 					}

@@ -10,11 +10,11 @@ import static junit.framework.TestCase.assertTrue;
  * @author Orhun Dalabasmaz
  */
 public class TestWords {
-	private static TestClientService CLIENT;
+	private static ClientService CLIENT;
 
 	private static void initClientService() {
 		if (CLIENT == null) {
-			CLIENT = TestClientService.getInstance();
+			CLIENT = ClientService.getInstance();
 		}
 	}
 

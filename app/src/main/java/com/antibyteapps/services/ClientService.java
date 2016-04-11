@@ -14,7 +14,9 @@ import javax.ws.rs.core.UriBuilder;
  * @author Orhun Dalabasmaz
  */
 public class ClientService {
-	private static final String ENDPOINT = "http://antibyteapps.orhundalabasmaz.com";
+	private static final String ENDPOINT_LOCAL = "http://wrkodalabasmaz:8080";
+	private static final String ENDPOINT_REMOTE = "http://antibyteapps.orhundalabasmaz.com";
+	private static final String ENDPOINT = ENDPOINT_REMOTE;
 	private static final String SERVICES = "services";
 	private static final String SERVICE_PATH = "dictionary";
 
