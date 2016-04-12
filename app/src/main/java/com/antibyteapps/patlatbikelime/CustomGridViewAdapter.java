@@ -7,22 +7,27 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 /**
  * Created by ykarabalkan on 09.04.2016.
  */
 public class CustomGridViewAdapter extends BaseAdapter {
     private Context context;
     private static LayoutInflater inflater = null;
-    public static String[] result = {"A", "B", "C", "Ç", "D", "E", "F", "G", "Ğ", "H", "I", "İ", "J", "K", "L", "M", "N", "O", "Ö", "P", "R", "S", "Ş", "T", "U"};
+    public static ArrayList<String> result = new ArrayList(Arrays.asList("A", "B", "C", "Ç", "D", "E", "F", "G", "Ğ", "H", "I", "İ", "J", "K", "L", "M", "N", "O", "Ö", "P", "R", "S", "Ş", "T", "U"));
 
     public CustomGridViewAdapter(Context context) {
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        Collections.shuffle(result);
     }
 
     @Override
     public int getCount() {
-        return result.length;
+        return result.size();
     }
 
     @Override
@@ -40,7 +45,7 @@ public class CustomGridViewAdapter extends BaseAdapter {
 
         final View rowView = inflater.inflate(R.layout.grid_list, null);
         final Item holder = new Item((TextView) rowView.findViewById(R.id.textView1), null, null);
-        holder.getTextView().setText(result[position]);
+        holder.getTextView().setText(result.get(position));
 
         return rowView;
     }
