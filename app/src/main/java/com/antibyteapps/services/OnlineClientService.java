@@ -7,7 +7,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * @author Orhun Dalabasmaz
  */
-public class OnlineClientService implements ClientService {
+public class OnlineClientService extends BaseClientService implements ClientService {
 	@Override
 	public void checkWord(final String word, final ClientResponseHandler responseHandler) {
 		HttpClient.get(word, getHttpResponseHandler(responseHandler));

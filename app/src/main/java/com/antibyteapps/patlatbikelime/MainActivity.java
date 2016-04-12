@@ -20,8 +20,9 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Random;
 
+import static com.antibyteapps.utils.Constants.ALPHABET;
+
 public class MainActivity extends AppCompatActivity {
-	private static final String ALPHABET = "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ";
 	private HashSet<Integer> hashSet = new LinkedHashSet<>();
 	private static ClientService clientService;
 

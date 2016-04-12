@@ -6,8 +6,12 @@ import com.antibyteapps.patlatbikelime.R;
 /**
  * @author Orhun Dalabasmaz
  */
-public class OfflineClientService implements ClientService {
-	private static DictionaryService localService = DictionaryService.getInstance(R.raw.words);
+public class OfflineClientService extends BaseClientService implements ClientService {
+	private DictionaryService localService;
+
+	public OfflineClientService() {
+		localService = new DictionaryService(R.raw.words, wordAnalyzer);
+	}
 
 	@Override
 	public void checkWord(final String word, final ClientResponseHandler responseHandler) {
