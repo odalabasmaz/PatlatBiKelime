@@ -10,23 +10,25 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.antibyteapps.services.ClientResponseHandler;
 import com.antibyteapps.services.ClientService;
-import com.loopj.android.http.TextHttpResponseHandler;
+import com.antibyteapps.services.ClientServiceFactory;
+import com.antibyteapps.utils.Configuration;
+import com.antibyteapps.utils.FileUtils;
 
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Random;
 
-import cz.msebera.android.httpclient.Header;
-
 public class MainActivity extends AppCompatActivity {
-
-	private LinkedHashSet<Integer> hashSet = new LinkedHashSet<>();
 	private static final String ALPHABET = "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ";
-	private static final ClientService CLIENT = ClientService.getInstance();
+	private HashSet<Integer> hashSet = new LinkedHashSet<>();
+	private static ClientService clientService;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		initServices();
 		setContentView(R.layout.activity_main);
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -42,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
 				return false;
 			}
 		});
+	}
+
+	private void initServices() {
+		FileUtils.setAssetManager(getAssets());
+		FileUtils.setResources(getResources());
+		clientService = ClientServiceFactory.getClientService(Configuration.getClientMode());
 	}
 
 	private void doTouchAction(final GridView gridview, MotionEvent event) {
@@ -60,16 +68,10 @@ public class MainActivity extends AppCompatActivity {
 			sb.append(((TextView) (gridview.getChildAt(i).findViewById(R.id.textView1))).getText());
 		}
 
-		CLIENT.checkWord(sb.toString(), new TextHttpResponseHandler() {
+		clientService.checkWord(sb.toString(), new ClientResponseHandler() {
 			@Override
-			public void onSuccess(int statusCode, Header[] headers, String responseBody) {
-				boolean isWord = "true".equals(responseBody);
+			public void onResponse(boolean isWord) {
 				checkResponse(sb.toString(), isWord, gridview);
-			}
-
-			@Override
-			public void onFailure(int statusCode, Header[] headers, String responseBody, Throwable error) {
-
 			}
 		});
 	}
